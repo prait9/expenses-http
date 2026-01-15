@@ -1,6 +1,6 @@
 import "./app.css";
-import ExpenseItem from "./components/expenseItem.jsx";
-import Expenses from "./components/expenses.jsx";
+import ExpenseItem from "./components/Expenses/expenseItem.jsx";
+import Expenses from "./components/Expenses/expenses.jsx";
 
 const App = () => {
   const expenses = [
