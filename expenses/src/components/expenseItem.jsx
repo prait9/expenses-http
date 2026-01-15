@@ -3,6 +3,7 @@ import ExpenseDate from './expenseDate.jsx';
 import './expenseItem.jsx';
 
 const ExpenseItem = (props) => {
+    console.log(props);
 
     return  (
         <>
