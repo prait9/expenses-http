@@ -1,14 +1,14 @@
 import ExpenseItem from './expenseItem.jsx';
 import './expenses.css';
+import Card from './card.jsx';
 
 const Expenses = (props) => {
-           console.log(props);
 
   return (
-    <div className="expenses">
+    <Card className="expenses">
       <ExpenseItem data={props.dataMain[0]} />
       <ExpenseItem data={props.dataMain[1]} />
-    </div>
+    </Card>
   );
 };
 
