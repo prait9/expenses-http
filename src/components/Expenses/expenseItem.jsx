@@ -23,7 +23,7 @@ const ExpenseItem = (props) => {
         </div>
         <button onClick={clickHandler}>Click me</button>
         
-        
+            
         </>
     );
 }
