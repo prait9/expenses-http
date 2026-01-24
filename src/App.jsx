@@ -3,7 +3,7 @@ import ExpenseItem from "./components/Expenses/expenseItem.jsx";
 import Expenses from "./components/Expenses/expenses.jsx";
 import NewExpense from "./components/NewExpense/NewExpense.jsx";
 
-const App = () => {
+const App = (props) => {
   const expenses = [
     {
       date: new Date(2024, 10, 12),
@@ -17,10 +17,15 @@ const App = () => {
     },
   ];
 
+const addExpenseHandler = (expense) => {
+    console.log("In App.js");
+    console.log(expense);
+  }
+
 
 return (
     <div>
-      <NewExpense></NewExpense>
+      <NewExpense onSaveExpenseData={addExpenseHandler} />
       <Expenses dataMain={expenses} />
     </div>
   );
