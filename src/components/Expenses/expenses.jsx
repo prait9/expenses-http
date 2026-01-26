@@ -5,15 +5,19 @@ import ExpensesFilter from './expenseFilter.jsx';
 
 const Expenses = (props) => {
 
+
     const filterChangeHandler = (selectedYear) => {
     console.log(selectedYear);
   };
 
   return (
     <Card className="expenses">
-      <ExpenseItem data={props.dataMain[0]} />
-      <ExpenseItem data={props.dataMain[1]} />
       <ExpensesFilter onChangeFilter={filterChangeHandler} />
+      {
+      props.expenses.map( (expense) => (
+        <ExpenseItem data={expense} key={expense.id} />
+      ))
+      }
     </Card>
   );
 };
