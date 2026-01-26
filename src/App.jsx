@@ -7,40 +7,39 @@ import { useState } from "react";
 const App = (props) => {
   const expenses = [
     {
-      id: '1d',
-      date: new Date(2024, 10, 12),
+      id: "1d",
+      date: new Date(2023, 10, 12),
       title: "New book",
       price: 30.99,
     },
     {
-      id: '2d',
+      id: "2d",
       date: new Date(2024, 10, 12),
       title: "New jeans",
       price: 99.99,
     },
     {
-      id: '3d',
+      id: "3d",
       date: new Date(2024, 10, 12),
       title: "New jeans",
       price: 139.99,
-    }
+    },
   ];
 
-const [expense, setExpenses] = useState(expenses);
+  const [expense, setExpenses] = useState(expenses);
 
-const addExpenseHandler = (expense) => {
-    setExpenses((previousExpense)  => {
+  const addExpenseHandler = (expense) => {
+    setExpenses((previousExpense) => {
       return [expense, ...previousExpense];
     });
   };
 
-
-return (
+  return (
     <div>
       <NewExpense onSaveExpenseData={addExpenseHandler} />
       <Expenses expenses={expenses} />
     </div>
   );
-}; 
+};
 
 export default App;
