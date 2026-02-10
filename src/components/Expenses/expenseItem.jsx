@@ -4,6 +4,10 @@ import React, { useState } from "react";
 
 const ExpenseItem = (props) => {
   const [Title, setTitle] = useState(props.expenseData.title);
+  const amountValue =
+    props.expenseData.amount !== undefined
+      ? props.expenseData.amount
+      : props.expenseData.price;
 
   const clickHandler = () => {
     console.log("Updated");
@@ -17,7 +21,7 @@ const ExpenseItem = (props) => {
         <ExpenseDate date={props.expenseData.date} />
         <div className="expense-item__description">
           <h2>{props.expenseData.title}</h2>
-          <div className="expense-item__price">{props.expenseData.price}</div>
+          <div className="expense-item__price">${Number(amountValue).toFixed(2)}</div>
         </div>
       </div>
       <button onClick={clickHandler}>Click me</button>

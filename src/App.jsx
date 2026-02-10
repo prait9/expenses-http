@@ -8,26 +8,67 @@ import { useState, useEffect } from "react";
   ];
 
 const App = (props) => {
-  const [expense, setExpenses] = useState(() => {
-  const expenseFormLS = JSON.parse(localStorage.getItem("expenses"));
-  return expenseFormLS || [];
-  });
+  const [expenses, setExpenses] = useState([]);
+  const [isFetching, setIsFetching] = useState(false);
+  const [error, setError] = useState(null);
+  const [showError, setShowError] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem("expenses", JSON.stringify(expense));
-  }, [expense]);
+  const getExpenses = async () => {
+  setIsFetching(true);
 
+  try {
+        const response = await fetch("http://localhost:3000/expenses");
+        const data = await response.json();
+        setExpenses(data.expenses || []);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch expenses");
+        }
+
+        } catch (error) {
+          setError ({
+            title: "Error!",
+            message: "Something went wrong while fetching expenses. Try again later."
+          })
+          setShowError(true);
+        }
+        setIsFetching(false);
+        }
+
+    getExpenses();
+    console.log("useEffect called");
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("expenses", JSON.stringify(expenses));
+  }, [expenses]);
+
+  const errorHandler = (error) => {
+    setError(error);
+    setShowError(true);
+  };  
 
   const addExpenseHandler = (expense) => {
-    setExpenses((previousExpense) => {
-      return [expense, ...previousExpense];
+    setExpenses((previousExpenses) => {
+      return [expense, ...previousExpenses];
     });
   };
 
   return (
-    <div>
+    <div className="App">
+      {showError && (
+        <Error
+          title={error.title}
+          message={error.message}
+          onConfirm={() => setShowError(false)}
+        />)
+      }
       <NewExpense onSaveExpenseData={addExpenseHandler} />
-      <Expenses expenses={expenses} />
+      <Expenses 
+      expenses={expenses}
+      isFetching={isFetching} />
+      
     </div>
   );
 };

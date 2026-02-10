@@ -3,6 +3,10 @@ import ExpenseItem from "./expenseItem.jsx";
 
 const ExpensesList = (props) => {
 
+      if (props.isFetching) {
+        return <p className="expenses-list__fallback">Loading expenses...</p>;
+      }
+
       if (props.expenses.length === 0) {
         return <p className="expenses-list__fallback">No expenses found.</p>;
       }

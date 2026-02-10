@@ -31,7 +31,9 @@ const Expenses = (props) => {
         filteredYear={filteredYear}
         onChangeFilter={filterChangeHandler}
       />
-      <ExpenseList expenses={filteredExpenses} />
+      <ExpenseList 
+      expenses={filteredExpenses}
+      isFetching={props.isFetching} />
     </Card>
   );
 };

@@ -4,46 +4,50 @@ import Error from '../UI/error.jsx';
 
 
 const ExpenseForm = (props) => {
-  const[error, setError] = useState(null);
-  const [userInput, setUserInput] = useState({
-    enteredTitle: "",
-    enteredPrice: "",
-    enteredDate: "",
-  });
+  const [error, setError] = useState(null);
 
-  const titleInputRef = React.createRef();
-  const priceInputRef = React.createRef();
-  const dateInputRef = React.createRef();
+  const titleInputRef = useRef();
+  const priceInputRef = useRef();
+  const dateInputRef = useRef();
 
-const errorHandler = () => {
-  setError(null);
-}
+  const errorHandler = () => {
+    setError(null);
+  };
 
   const submitHandler = (event) => {
-const enteredTitle = titleInputRef.current.value;
-const enteredPrice = priceInputRef.current.value;
-const enteredDate = dateInputRef.current.value;
-
     event.preventDefault();
-    const expenseData = {
-      title: userInput.enteredTitle,
-      amount: userInput.enteredPrice,
-      date: userInput.enteredDate,
-    };
-    setUserInput({
-      enteredTitle: "",
-      enteredPrice: "",
-      enteredDate: "",
-    });
-    props.onSaveExpenseData(expenseData);
 
-    if (enteredTitle.trim().length === 0 || enteredPrice.trim().length === 0 || enteredDate.trim().length === 0) {
+    const enteredTitle = titleInputRef.current?.value || "";
+    const enteredPrice = priceInputRef.current?.value || "";
+    const enteredDate = dateInputRef.current?.value || "";
+
+    if (
+      enteredTitle.trim().length === 0 ||
+      enteredPrice.toString().trim().length === 0 ||
+      enteredDate.trim().length === 0
+    ) {
       setError({
         title: "Invalid input",
-        message: "Please enter a valid title, price and date (non-empty values)."
+        message: "Please enter a valid title, price and date (non-empty values).",
       });
       return;
     }
+
+    const expenseData = {
+      title: enteredTitle,
+      amount: parseFloat(enteredPrice),
+      date: new Date(enteredDate),
+    };
+
+    props.onSaveExpenseData(expenseData);
+
+    // clear inputs
+    if (titleInputRef.current) titleInputRef.current.value = "";
+    if (priceInputRef.current) priceInputRef.current.value = "";
+    if (dateInputRef.current) dateInputRef.current.value = "";
+
+    // close the form
+    if (props.onCancel) props.onCancel();
   };
 
   return (

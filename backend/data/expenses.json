@@ -1,0 +1,20 @@
+[
+    {
+        "id": "e1",
+        "title": "new book",
+        "amount": 94.12,
+        "date": "2023-01-24T00:00:00.000Z"
+    },
+    {
+        "id": "e2",
+        "title": "new jeans",
+        "amount": 94.12,
+        "date": "2024-01-24T00:00:00.000Z"
+    },
+    {
+        "id": "e3",
+        "title": "Toilet Paper",
+        "amount": 139.12,
+        "date": "2024-01-24T00:00:00.000Z"
+    }
+]
